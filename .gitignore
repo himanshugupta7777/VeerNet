@@ -1,0 +1,18 @@
+# Node modules
+veer-backend/node_modules/
+veer-net-client/node_modules/
+
+# Build outputs
+veer-net-client/dist/
+veer-backend/dist/
+veer-net-client/build/
+
+# Environment files
+veer-backend/.env
+veer-net-client/.env
+
+# Credentials
+veer-backend/cds-service-account.json
+
+# System files
+.DS_Store

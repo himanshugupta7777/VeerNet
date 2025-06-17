@@ -1,0 +1,62 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('/flag-indian.jpeg');
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+}
+
+.auth-card {
+  background-color: rgba(255, 255, 255, 0.93);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 128, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.auth-logo {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+.auth-card h2 {
+  margin-bottom: 1rem;
+  color: darkgreen;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  background-color: #005c00;
+}
+
+.auth-message {
+  margin-bottom: 1rem;
+  color: red;
+  font-weight: 500;
+}
