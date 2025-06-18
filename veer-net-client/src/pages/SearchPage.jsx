@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import "../app.css";
+import "../App.css";
 import axios from "../axiosInstance"; 
 
 const SearchPage = () => {
