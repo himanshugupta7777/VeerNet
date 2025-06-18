@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaYoutube } from "react-icons/fa"; // YouTube icon from react-icons
+import axios from "./axiosInstance"; // Make sure the path is correct relative to this file
 
 const HeroDetail = () => {
   const { id } = useParams();
@@ -10,8 +11,8 @@ const HeroDetail = () => {
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/heroes/${id}`);
-        const data = await res.json();
+        const res = await axios.get(`/api/heroes/${id}`);
+        const data = res.data; 
         setHero(data);
         setLoading(false);
       } catch (err) {
@@ -36,18 +37,18 @@ const HeroDetail = () => {
         style={{ maxWidth: "100%", borderRadius: "10px" }}
       />
 
-      <div className="hero-info" style={{ marginTop: "1rem"}}>
-        {hero.rank && <p style={{color:"white"}}><strong style={{color:"white"}}>Rank:</strong> {hero.rank}</p>}
-        {hero.unit && <p style={{color:"white"}}><strong style={{color:"white"}}>Unit:</strong> {hero.unit}</p>}
-        {hero.award && <p style={{color:"white"}}><strong style={{color:"white"}}>Award:</strong> {hero.award}</p>}
-        {hero.birthDate && <p style={{color:"white"}}><strong style={{color:"white"}}>Born:</strong> {hero.birthDate}</p>}
-        {hero.deathDate && <p style={{color:"white"}}><strong style={{color:"white"}}>Martyrdom:</strong> {hero.deathDate}</p>}
+      <div className="hero-info" style={{ marginTop: "1rem" }}>
+        {hero.rank && <p><strong>Rank:</strong> {hero.rank}</p>}
+        {hero.unit && <p><strong>Unit:</strong> {hero.unit}</p>}
+        {hero.award && <p><strong>Award:</strong> {hero.award}</p>}
+        {hero.birthDate && <p><strong>Born:</strong> {hero.birthDate}</p>}
+        {hero.deathDate && <p><strong>Martyrdom:</strong> {hero.deathDate}</p>}
         {hero.battles?.length > 0 && (
-          <p style={{color:"white"}}><strong style={{color:"white"}}>Battles:</strong> {hero.battles.join(", ")}</p>
+          <p><strong>Battles:</strong> {hero.battles.join(", ")}</p>
         )}
       </div>
 
-      <p style={{ marginTop: "1rem", lineHeight: "1.6" ,color:"white"}}>{hero.details}</p>
+      <p style={{ marginTop: "1rem", lineHeight: "1.6" }}>{hero.details}</p>
 
       {hero.quotes?.length > 0 && (
         <blockquote style={{

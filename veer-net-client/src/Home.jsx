@@ -20,7 +20,7 @@ const images = [
 ];
 
 const Home = () => {
-  const navigate = useNavigate(); // ✅ move inside function
+  const navigate = useNavigate(); 
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideInterval = useRef(null);
@@ -58,7 +58,7 @@ const Home = () => {
         />
       ),
       description: "Dive into the history, valor, and stories of Indian Army regiments.",
-      onClick: () => navigate("/regiments") // ✅ handled properly
+      onClick: () => navigate("/regiments") 
     },
     {
       title: "National Heroes",

@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "./axiosInstance"; 
 
 const RegimentDetail = () => {
   const { id } = useParams();
   const [regiment, setRegiment] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/regiments/${id}`)
-      .then((res) => {
+    const fetchRegiment = async () => {
+      try {
+        const res = await axiosInstance.get(`/api/regiments/${id}`);
         setRegiment(res.data);
         setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Error fetching regiment:", err);
+        setError("Failed to fetch regiment details.");
         setLoading(false);
-      });
+      }
+    };
+
+    fetchRegiment();
   }, [id]);
 
   if (loading) return <p style={{ color: "white" }}>Loading...</p>;
+  if (error) return <p style={{ color: "white" }}>{error}</p>;
   if (!regiment) return <p style={{ color: "white" }}>Regiment not found.</p>;
 
   return (
@@ -27,6 +33,7 @@ const RegimentDetail = () => {
       <h1 style={{ color: "#ff9933", textAlign: "center", textShadow: "1px 1px 2px #000" }}>
         {regiment.name}
       </h1>
+
       <img
         src={regiment.image}
         alt={regiment.name}
@@ -38,7 +45,10 @@ const RegimentDetail = () => {
           margin: "20px 0"
         }}
       />
-      <p style={{ fontSize: "1.1rem", lineHeight: "1.6" ,color:"White"}}>{regiment.details}</p>
+
+      <p style={{ fontSize: "1.1rem", lineHeight: "1.6", color: "white" }}>
+        {regiment.details}
+      </p>
 
       {regiment.awards && regiment.awards.length > 0 && (
         <div style={{ marginTop: "20px" }}>

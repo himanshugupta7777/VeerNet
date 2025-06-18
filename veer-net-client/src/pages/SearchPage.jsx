@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import "../app.css";
+import axios from "../axiosInstance"; 
 
 const SearchPage = () => {
   const location = useLocation();
@@ -10,9 +11,8 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/search?q=${query}`);
-        const data = await res.json();
-        setResults(data);
+        const res = await axios.get(`/api/search?q=${query}`); 
+        setResults(res.data);
       } catch (err) {
         console.error("Search error:", err);
       }
@@ -30,7 +30,7 @@ const SearchPage = () => {
         {results.heroes.length > 0 ? (
           results.heroes.map((hero) => (
             <div key={hero._id} className="result-card">
-              <Link to={`/heroes/${hero._id}`} style={{ textDecoration: 'none' }}>
+              <Link to={`/heroes/${hero._id}`} style={{ textDecoration: "none" }}>
                 <h4>{hero.name}</h4>
               </Link>
               <p>{hero.rank} | {hero.unit}</p>
@@ -39,7 +39,7 @@ const SearchPage = () => {
             </div>
           ))
         ) : (
-          <p style={{color:"black"}}>No heroes found.</p>
+          <p style={{ color: "black" }}>No heroes found.</p>
         )}
       </div>
 
@@ -48,7 +48,7 @@ const SearchPage = () => {
         {results.regiments.length > 0 ? (
           results.regiments.map((regiment) => (
             <div key={regiment._id} className="result-card">
-              <Link to={`/regiments/${regiment._id}`} style={{ textDecoration: 'none' }}>
+              <Link to={`/regiments/${regiment._id}`} style={{ textDecoration: "none" }}>
                 <h4>{regiment.name}</h4>
               </Link>
               <p>{regiment.description?.slice(0, 120)}...</p>
@@ -56,7 +56,7 @@ const SearchPage = () => {
             </div>
           ))
         ) : (
-          <p style={{color:"black"}}>No regiments found.</p>
+          <p style={{ color: "black" }}>No regiments found.</p>
         )}
       </div>
     </div>

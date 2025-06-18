@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "./axiosInstance"; 
 import "./App.css";
 
 const Regiments = () => {
-  console.log("Regiments component mounted ");
   const [regiments, setRegiments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const regimentsPerPage = 8;
 
   useEffect(() => {
-    console.log("Fetching regiments...");
     const fetchRegiments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/regiments");
-        console.log("Regiments fetched",response.data);
+        const response = await axiosInstance.get("/api/regiments"); 
         setRegiments(response.data);
       } catch (error) {
         console.error("Error fetching regiments:", error);
@@ -21,12 +20,18 @@ const Regiments = () => {
 
     fetchRegiments();
   }, []);
-    console.log("Regiment data in JSX:", regiments);
+
+  const totalPages = Math.ceil(regiments.length / regimentsPerPage);
+  const displayedRegiments = regiments.slice(
+    (currentPage - 1) * regimentsPerPage,
+    currentPage * regimentsPerPage
+  );
+
   return (
     <div className="regiments-container">
       <h1 className="page-heading">Indian Army Regiments</h1>
       <div className="regiment-grid">
-        {regiments.map((regiment) => (
+        {displayedRegiments.map((regiment) => (
           <div key={regiment._id} className="regiment-card">
             <img
               src={regiment.image}
@@ -43,8 +48,26 @@ const Regiments = () => {
           </div>
         ))}
       </div>
+
+      <Pagination totalPages={totalPages} currentPage={currentPage} changePage={setCurrentPage} />
     </div>
   );
 };
+
+const Pagination = ({ totalPages, currentPage, changePage }) => (
+  <div className="pagination">
+    <button disabled={currentPage === 1} onClick={() => changePage(currentPage - 1)}>Prev</button>
+    {[...Array(totalPages)].map((_, idx) => (
+      <button
+        key={idx}
+        className={currentPage === idx + 1 ? "active" : ""}
+        onClick={() => changePage(idx + 1)}
+      >
+        {idx + 1}
+      </button>
+    ))}
+    <button disabled={currentPage === totalPages} onClick={() => changePage(currentPage + 1)}>Next</button>
+  </div>
+);
 
 export default Regiments;

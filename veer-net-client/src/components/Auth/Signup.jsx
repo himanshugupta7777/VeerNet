@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "../../axiosInstance"; 
 import "./AuthForm.css";
 
 const Signup = () => {
@@ -13,7 +13,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/auth/signup", { name, email, password });
+      await axios.post("/api/auth/signup", { name, email, password }); // no baseURL needed
       localStorage.setItem("user", JSON.stringify({ name, email }));
       setMessage("Signup successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1000);
@@ -56,7 +56,7 @@ const Signup = () => {
           />
           <button type="submit">Signup</button>
         </form>
-        <p style={{color:"blue"}}>
+        <p style={{ color: "blue" }}>
           Already a user? <Link to="/login">Login here</Link>
         </p>
       </div>

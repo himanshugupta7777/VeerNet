@@ -10,7 +10,7 @@ import regimentRoutes from "./routes/regimentRoutes.js";
 import heroRoutes from "./routes/heroRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import newsRoute from "./routes/news.js";
-import authRoutes from "./routes/authRoutes.js"; // ✅ New auth route
+import authRoutes from "./routes/authRoutes.js"; 
 import searchRoute from "./routes/search.js";
 
 const app = express();
@@ -28,7 +28,7 @@ app.use("/api/regiments", regimentRoutes);
 app.use("/api/heroes", heroRoutes);
 app.use("/api/quiz", quizRoutes);
 app.use("/api/news", newsRoute);
-app.use("/api/auth", authRoutes); // ✅ Register login/signup routes
+app.use("/api/auth", authRoutes); 
 app.use("/api/search", searchRoute);
 
 
@@ -38,5 +38,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Server started on port ${PORT}`);
+  console.log(` Server started on port ${PORT}`);
 });

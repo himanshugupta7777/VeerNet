@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     console.log(`✅ Articles fetched for '${category}': ${response.data.articles.length}`);
     res.json(response.data.articles); // Send back articles array
   } catch (error) {
-    console.error("❌ Error fetching news:", error.message);
+    console.error("Error fetching news:", error.message);
     res.status(500).json({ error: "Failed to fetch news" });
   }
 });

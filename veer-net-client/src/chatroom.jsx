@@ -114,7 +114,7 @@ const ChatRoom = () => {
       <h2 className="chat-header">Welcome, {username}</h2>
 
       {onlineUsers.length > 0 && (
-        <div className="online-users">🟢 Online: {onlineUsers.join(", ")}</div>
+        <div className="online-users"> Online: {onlineUsers.join(", ")}</div>
       )}
 
       {typingUsers.length > 0 && (
