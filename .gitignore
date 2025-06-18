@@ -12,6 +12,8 @@ veer-backend/cds-service-account.json
 veer-backend/.env
 veer-net-client/.env
 veer-net-client/src/firebase.js
+veer-net-client/.env-production
+
 
 
 # Credentials
