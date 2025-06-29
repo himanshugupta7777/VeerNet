@@ -25,6 +25,7 @@ const Quiz = () => {
       try {
         setLoading(true);
         setError(null);
+         console.log("Base url:",import.meta.env.VITE_API_BASE_URL);
         const res = await axiosInstance.get(`/api/quiz/${subject}?week=${weekMode}`);
         const data = res.data;
 

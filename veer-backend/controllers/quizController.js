@@ -6,13 +6,14 @@ const clean = (str) => str?.replace(/\s+/g, " ").trim().toLowerCase();
 export const getQuizBySubject = async (req, res) => {
   try {
     const { subject } = req.params;
-    const weekMode = req.query.week || "current";
+    const weekMode = req.query.week || "current"; 
 
     console.log(" Requested subject:", subject);
     console.log(" Week mode:", weekMode);
 
-    // Fetch current week data
-    let data = await getSheetData("current");
+   
+    let data = await getSheetData(weekMode);
+
     const requestedSubject = clean(subject);
 
     const availableSubjects = [...new Set(data.map((q) => clean(q.subject)))];
@@ -20,9 +21,9 @@ export const getQuizBySubject = async (req, res) => {
 
     let filtered = data.filter((q) => clean(q.subject) === requestedSubject);
     console.log(` Filtered questions count for '${requestedSubject}': ${filtered.length}`);
-    console.log("Sample filtered data:", filtered.slice(0, 2));
+    console.log(" Sample filtered data:", filtered.slice(0, 2));
 
-    //  Fallback to Week 1 if current week has no data
+   
     if (filtered.length === 0 && weekMode === "current") {
       console.warn(` No questions found for subject '${requestedSubject}' in current week. Falling back to Week 1.`);
       const fallbackData = await getSheetData("fallback");
@@ -43,7 +44,7 @@ export const getQuizBySubject = async (req, res) => {
       });
     }
 
-    // Shuffle and return
+    
     const shuffled = [...filtered].sort(() => Math.random() - 0.5);
     console.log(" Shuffled questions count:", shuffled.length);
     console.log(" Sample shuffled data:", shuffled.slice(0, 2));
